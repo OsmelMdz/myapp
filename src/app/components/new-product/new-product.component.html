@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center" color="primary">
+    <ion-buttons>
+      <ion-button fill="clear" (click)="close()">
+        <ion-icon slot="icon-only" color="dark" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{titulo}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <form>
+          <ion-item>
+            <ion-label position="stacked">Nombre</ion-label>
+            <ion-input type="text" formControlName="productName" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Imagen del Producto</ion-label>
+            <ion-input>
+              <input class="espacioImg" type="file" placeholder="Seleccionar Imagen" accept="image/*">
+            </ion-input>
+          </ion-item>
+
+          <ion-row class="input-row">
+            <ion-item class="input-item">
+              <ion-label position="stacked">Código</ion-label>
+              <ion-input type="text" formControlName="productCode" required></ion-input>
+            </ion-item>
+
+            <ion-item class="input-item">
+              <ion-label position="stacked">Categoría</ion-label>
+              <ion-select formControlName="productCategory" required>
+                <ion-select-option></ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-row>
+
+          <ion-row class="input-row">
+            <ion-item class="input-item">
+              <ion-label position="stacked">Precio</ion-label>
+              <ion-input type="number" formControlName="productPrice" required></ion-input>
+            </ion-item>
+
+            <ion-item class="input-item">
+              <ion-label position="stacked">Inventario</ion-label>
+              <ion-input type="number" formControlName="productInventory" required></ion-input>
+            </ion-item>
+          </ion-row>
+
+          <ion-item>
+            <ion-label position="stacked">Adquisición</ion-label>
+            <ion-input type="date" formControlName="acquisitionDate" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Vencimiento</ion-label>
+            <ion-input type="date" formControlName="expirationDate" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Stock</ion-label>
+            <ion-input type="number" formControlName="productStock" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-button class="button-container" type="submit" class="rounded-button">
+              Guardar
+            </ion-button>
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

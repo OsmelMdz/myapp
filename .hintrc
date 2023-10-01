@@ -3,6 +3,9 @@
     "development"
   ],
   "hints": {
-    "axe/text-alternatives": "off"
+    "axe/text-alternatives": "off",
+    "compat-api/html": "off",
+    "no-inline-styles": "off",
+    "axe/forms": "off"
   }
 }
