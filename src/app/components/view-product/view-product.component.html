@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center" color="primary">
+    <ion-buttons>
+      <ion-button fill="clear" (click)="close()">
+        <ion-icon slot="icon-only" color="dark" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{titulo}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-grid>
+  <ion-row>
+    <ion-col offset="2" size="8">
+      <img src="https://www.lg.com/mx/images/televisores/md07548054/gallery/DZ-06_v1.jpg" alt="">
+    </ion-col>
+  </ion-row>
+  <ion-list>
+    <ion-item>
+      <ion-label>Nombre: SmartTV</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Descripción: es una television</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Precio: {{17 | currency}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-grid>
+</ion-content>

@@ -34,7 +34,7 @@
   <ion-card>
     <ion-list>
       <ion-item lines="full" *ngFor="let x of [1,1,1,1,1,1,1,1]">
-        <ion-thumbnail slot="start">
+        <ion-thumbnail (click)="openViewProduct()" slot="start">
           <img alt="Silhouette of mountains" src="https://m.media-amazon.com/images/I/71bUdzvnWHL.jpg" />
         </ion-thumbnail>
         <ion-label>
