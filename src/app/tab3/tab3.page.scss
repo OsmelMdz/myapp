@@ -1,0 +1,47 @@
+input {
+  outline: none;
+  width: 100%;
+  height: 39px;
+  border-radius: 5px;
+  border: 1px solid #6ABFEE;
+  background-color: transparent;
+  padding-left: 3px; /* Puedes ajustar el valor según tus necesidades */
+  padding-right: 10px; /* Puedes ajustar el valor según tus necesidades */
+  text-indent: 10px; /* Puedes ajustar el valor según tus necesidades */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100%;
+  top: auto;
+  margin-top: 30px; /* Espacio opcional en la parte superior del botón */
+  padding-bottom: 20px; /* Espacio opcional en la parte inferior del botón */
+}
+
+ion-button{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.rounded-button {
+  border-radius: 20px; /* Ajusta el valor según el grado de redondeo deseado */
+  width: 500%; /* Ajusta el ancho del botón según tus necesidades */
+  height: 35px; /* Ajusta el alto del botón según tus necesidades */
+}
+
+
+.input-row {
+  display: flex;
+  justify-content: space-between; /* Espacio entre los elementos */
+  flex: 1; /* Para que los elementos ocupen el mismo espacio en la fila */
+  }
+
+.input-item {
+  flex: 1; /* Para que los elementos ocupen el mismo espacio en la fila */
+}
+
+ion-thumbnail {
+  --border-radius: 10px;
+}

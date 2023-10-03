@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
+  titulo = 'Ventas'
+
   constructor() {}
+
+  onSearchChange(){
+  }
 
 }
