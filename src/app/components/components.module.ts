@@ -4,18 +4,19 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewProductComponent } from './new-product/new-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
 @NgModule({
   declarations: [
-    NewProductComponent, ViewProductComponent
+    NewProductComponent, ViewProductComponent, HeaderComponent
   ],
   imports: [
     CommonModule, IonicModule, FormsModule, ReactiveFormsModule
   ],
   exports: [
-    NewProductComponent, ViewProductComponent
+    NewProductComponent, ViewProductComponent, HeaderComponent
   ]
 })
 export class ComponentsModule { }

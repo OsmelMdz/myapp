@@ -64,7 +64,7 @@ export class Tab1Page {
 
 
 
-  titulo = 'Sistema de Inventario';
+
 
   masVendidos: productSlide[] = [
     {

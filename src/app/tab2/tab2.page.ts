@@ -10,7 +10,7 @@ import { ViewProductComponent } from '../components/view-product/view-product.co
 })
 export class Tab2Page {
 
-  titulo = 'Mis Productos'
+  
 
   constructor(private modalCtrl: ModalController) {
   }

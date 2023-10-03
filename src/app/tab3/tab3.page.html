@@ -1,10 +1,4 @@
-<ion-header>
-  <ion-toolbar class="ion-text-center" color="primary">
-    <ion-title>
-      {{titulo}}
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="Mis Ventas"></app-header>
 
 <ion-content>
   <ion-searchbar mode="ios" placeholder="Buscar producto" inputmode="decimal" type="decimal" (ionChange)="onSearchChange()" [debounce]="250">

@@ -7,9 +7,11 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
+    ComponentsModule,
     IonicModule,
     CommonModule,
     FormsModule,

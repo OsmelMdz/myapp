@@ -7,10 +7,12 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   imports: [
+    ComponentsModule,
     IonicModule,
     CommonModule,
     FormsModule,
