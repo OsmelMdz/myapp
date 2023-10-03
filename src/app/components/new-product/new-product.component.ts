@@ -16,6 +16,6 @@ export class NewProductComponent  implements OnInit {
     await this.modalCtrl.dismiss();
   }
 
-  titulo = 'Agregar Producto';
+  titulo = 'Nuevo Producto';
 
 }

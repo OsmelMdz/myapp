@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-view-product',
-  templateUrl: './view-product.component.html',
-  styleUrls: ['./view-product.component.scss'],
+  selector: 'app-new-sale',
+  templateUrl: './new-sale.component.html',
+  styleUrls: ['./new-sale.component.scss'],
 })
-export class ViewProductComponent  implements OnInit {
+export class NewSaleComponent  implements OnInit {
 
   constructor(private modalCtrl: ModalController) { }
 
@@ -16,6 +16,6 @@ export class ViewProductComponent  implements OnInit {
     await this.modalCtrl.dismiss();
   }
 
-  titulo = 'Detalles del Producto';
+  titulo = 'Nueva Venta';
 
 }

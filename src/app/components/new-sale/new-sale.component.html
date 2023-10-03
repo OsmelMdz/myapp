@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center" color="primary">
+    <ion-buttons>
+      <ion-button fill="clear" (click)="close()">
+        <ion-icon slot="icon-only" color="dark" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{titulo}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar mode="ios" placeholder="Buscar producto" inputmode="decimal" type="decimal"
+    [debounce]="250"></ion-searchbar>
+    <ion-row>
+      <ion-item class="input-item">
+        <ion-label position="stacked">Cantidad</ion-label>
+        <ion-input type="number" formControlName="productPrice" placeholder="Cantidad de productos" required></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-item>
+      <ion-button class="button-container" type="submit" class="rounded-button">
+        Guardar
+      </ion-button>
+    </ion-item>
+</ion-content>
