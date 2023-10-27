@@ -1,7 +1,10 @@
 <app-header titulo="Mis Ventas"></app-header>
-
 <ion-content>
-  <ion-searchbar mode="ios" placeholder="Buscar producto" inputmode="decimal" type="decimal" (ionChange)="onSearchChange()" [debounce]="250">
+  <ion-searchbar
+  mode="ios"
+  placeholder="Buscar producto"
+  (ionChange)="onSearchChange()"
+  [debounce]="250">
   </ion-searchbar>
 
   <ion-row class="input-row">

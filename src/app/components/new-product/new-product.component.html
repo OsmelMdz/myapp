@@ -15,60 +15,69 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12">
-        <form>
-          <ion-item>
-            <ion-label position="stacked">Nombre</ion-label>
-            <ion-input type="text" formControlName="productName" required></ion-input>
-          </ion-item>
+        <form [formGroup]="formProduct" (ngSubmit)="submit()">
+
+            <ion-item>
+              <ion-img class="imgadd" id="imgProd" #itemPicture [src]="imgProduct" (click)="imageProduct($event)">
+              </ion-img>
+            </ion-item>
 
           <ion-item>
-            <ion-label position="stacked">Imagen del Producto</ion-label>
-            <ion-input>
-              <input class="espacioImg" type="file" placeholder="Seleccionar Imagen" accept="image/*">
-            </ion-input>
+            <ion-label position="stacked">Nombre</ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+            <small *ngIf="validaCtrl('name')" style="color: red;">El nombre es obligatorio</small>
           </ion-item>
 
           <ion-row class="input-row">
             <ion-item class="input-item">
-              <ion-label position="stacked">Código</ion-label>
-              <ion-input type="text" formControlName="productCode" required></ion-input>
-            </ion-item>
-
-            <ion-item class="input-item">
               <ion-label position="stacked">Categoría</ion-label>
-              <ion-select formControlName="productCategory" required>
-                <ion-select-option></ion-select-option>
+              <ion-select type="number" placeholder="Selecciona una categoría" formControlName="category_id">
+                <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                  {{ categoria.name }}</ion-select-option>
               </ion-select>
+              <small *ngIf="validaCtrl('category_id')" style="color: red;">Elije una categoria es obligatorio</small>
             </ion-item>
           </ion-row>
 
           <ion-row class="input-row">
             <ion-item class="input-item">
               <ion-label position="stacked">Precio</ion-label>
-              <ion-input type="number" formControlName="productPrice" required></ion-input>
+              <ion-input type="number" formControlName="price"></ion-input>
+              <small *ngIf="validaCtrl('price')" style="color: red">El precio es obligatorio</small>
             </ion-item>
 
             <ion-item class="input-item">
               <ion-label position="stacked">Stock</ion-label>
-              <ion-input type="number" formControlName="productStock" required></ion-input>
+              <ion-input type="number" inputmode="numeric" formControlName="stock"></ion-input>
+              <small *ngIf="validaCtrl('stock')" style="color: red">El stock es obligatorio</small>
             </ion-item>
           </ion-row>
 
-          <ion-item>
-            <ion-label position="stacked">Adquisición</ion-label>
-            <ion-input type="date" formControlName="acquisitionDate" required></ion-input>
+          <ion-item class="input-item">
+            <ion-label position="stacked" class="custom-label">Precio de venta</ion-label>
+            <ion-input formControlName="price_sale" class="custom-field" type="number"></ion-input>
+            <small *ngIf="validaCtrl('price_sale')" style="color: red">El precio de venta es obligatorio</small>
+            <small *ngIf="validarPrecio()" style="color: red">El precio de venta debe ser mayor</small>
           </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Vencimiento</ion-label>
-            <ion-input type="date" formControlName="expirationDate" required></ion-input>
-          </ion-item>
+          <ion-row class="input-row">
+              <ion-item class="input-item">
+                <ion-button class="button-container" expand="block" class="rounded-button" color="success"  (click)="addCaducidad()" >
+                  {{caduca ? 'Quitar Caducidad' : 'Agregar Caducidad'}}
+                </ion-button>
+              </ion-item>
+              <ion-item class="input-item" *ngIf="caduca">
+                <br><br>
+                <ion-input type="date" formControlName="expired"></ion-input>
+              </ion-item>
+          </ion-row>
 
           <ion-item>
-            <ion-button class="button-container" type="submit" class="rounded-button">
+            <ion-button [disabled]="!formProduct.valid" class="button-container" type="submit" expand="block" class="rounded-button">
               Guardar
             </ion-button>
           </ion-item>
+
         </form>
       </ion-col>
     </ion-row>

@@ -24,9 +24,38 @@ swiper-slide {
   box-sizing: border-box;
 }
 
+
+
 swiper-slide img {
   width: auto;
   max-width: 100%;
   height: auto;
   max-height: 100%;
+}
+
+
+//Para telefonos
+@media (max-width: 767px) {
+  .imagen {
+      width: 100px;
+      height: 80px;
+  }
+  .imagen2 {
+    padding: 0px 0px 0px 0px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;
+    height: 250px;
+}
+}
+//Para medidas mas grandes
+@media (min-width: 768px) {
+  .imagen {
+      width: 400px;
+      height: 400px;
+  }
+  .imagen2 {
+    width: 800px;
+    height: 500px;
+}
 }

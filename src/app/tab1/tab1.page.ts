@@ -46,7 +46,7 @@ export class Tab1Page {
       series: [
         {
           name: "My-series",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 50]
         }
       ],
       chart: {
@@ -57,7 +57,7 @@ export class Tab1Page {
         text: "Ventas"
       },
       xaxis: {
-        categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]
+        categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep","Oct"]
       }
     };
   }
@@ -73,11 +73,11 @@ export class Tab1Page {
     },
     {
       id: 2,
-      imagen: 'https://www.lg.com/mx/images/televisores/md07548054/gallery/DZ-06_v1.jpg'
+      imagen: 'https://www.telcel.com/medias/iPhone15GreenDual-515Wx515H.png?context=bWFzdGVyfGltYWdlc3wyMzE4MjJ8aW1hZ2UvcG5nfGltYWdlcy9oODUvaDJhLzg5MTY2MzA3NjU1OTgucG5nfGI5NDgzYTY0NGVkODBkNTgxMzg2YzBkMDUzZmQ5MjAxNDYxOTc5M2JiZjEzNjQ1ZGU0ZWIyYmM5NmFlMzA3YTk'
     },
     {
       id: 3,
-      imagen: 'https://www.lg.com/mx/images/televisores/md07548054/gallery/DZ-06_v1.jpg'
+      imagen: 'https://http2.mlstatic.com/D_NQ_NP_2X_776741-MLA46980851700_082021-F.webp'
     }
   ]
 
@@ -87,37 +87,37 @@ export class Tab1Page {
       description: 'assssdaf',
       id: 1,
       imagen: 'https://www.lg.com/mx/images/televisores/md07548054/gallery/DZ-06_v1.jpg',
-      name: 'tele',
+      name: 'smartTV',
       precio: 500,
       state: true,
       stock: 2
     },
     {
       codigo: 'jksd',
-      description: 'assssdaf',
+      description: '15',
       id: 2,
-      imagen: 'https://www.lg.com/mx/images/televisores/md07548054/gallery/DZ-06_v1.jpg',
-      name: 'camisa',
+      imagen: 'https://www.telcel.com/medias/iPhone15BlackDual-515Wx515H.png?context=bWFzdGVyfGltYWdlc3wyMDQ5MTR8aW1hZ2UvcG5nfGltYWdlcy9oODYvaDFmLzg5MTY2MzA2MzQ1MjYucG5nfDY5NGVmYWY2MjliNGEzYTcwNzY5NjZlNzM2ZmFhMDU0MjRjMjA4YzAyZDlkMjg4NWFlNWQzNzk3YTg1ODNhN2Q',
+      name: 'iphone',
       precio: 500,
       state: true,
       stock: 5
     },
     {
       codigo: 'abcd',
-      description: 'assssdaf',
+      description: 'sony',
       id: 3,
-      imagen: 'https://www.lg.com/mx/images/televisores/md07548054/gallery/DZ-06_v1.jpg',
-      name: 'telefono',
+      imagen: 'https://www.sony.com.mx/image/4658a5b0d99da9d0dbecc7a7edaccdca?fmt=png-alpha&wid=720',
+      name: 'Audifonos',
       precio: 100,
       state: true,
       stock: 0
     },
     {
       codigo: 'qwrw',
-      description: 'assssdaf',
+      description: '2500 ml',
       id: 4,
-      imagen: 'https://www.lg.com/mx/images/televisores/md07548054/gallery/DZ-06_v1.jpg',
-      name: 'audifonos sony',
+      imagen: 'https://panoli.mx/cdn/shop/products/7441003500907-1-scaled_1788x.jpg?v=1639607192',
+      name: 'Coca-Cola',
       precio: 750,
       state: true,
       stock: 10

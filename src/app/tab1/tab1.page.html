@@ -5,7 +5,7 @@
   <swiper-container [loop]="true" [pagination]="true" [autoplay]="{delay:3000}" #swiper [slidesPerView]="1.5">
     <swiper-slide class="ion-padding" *ngFor="let prod of masVendidos">
       <ion-card>
-        <img class="slide-img" [src]="prod.imagen">
+        <ion-img  class="imagen2" [src]="prod.imagen"></ion-img>
       </ion-card>
     </swiper-slide>
   </swiper-container>
@@ -16,16 +16,16 @@
   </ion-text>
   <swiper-container [autoplay]="{delay:3000}" #swiper [slidesPerView]="2.5">
     <swiper-slide *ngFor="let prod of productos">
-      <ion-card>
+      <ion-card >
         <ion-card-header class="ion-no-padding">
           <ion-item lines="none">
-            <p>{{prod.name.length > 12 ? prod.name.substring(0, 10) + '...' : prod.name}}</p>
+            <p>{{prod.name.length > 5 ? prod.name.substring(0, 5) + '...' : prod.name}}</p>
             <ion-icon *ngIf="prod.stock > 0" slot="end" name="checkmark-circle" color="success"></ion-icon>
             <ion-icon *ngIf="prod.stock === 0" slot="end" name="close-circle" color="danger"></ion-icon>
           </ion-item>
         </ion-card-header>
         <ion-card-content>
-          <ion-img [src]="prod.imagen"></ion-img>
+          <ion-img class="imagen"  [src]="prod.imagen"></ion-img>
           <h3 class="ion-padding precio">{{prod.precio | currency}}</h3>
         </ion-card-content>
       </ion-card>

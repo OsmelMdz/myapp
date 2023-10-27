@@ -1,3 +1,13 @@
 ion-thumbnail {
   --border-radius: 10px;
 }
+.delete-product-button {
+  background-color: #fff;
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+.delete-product-button:hover {
+  background-color: #f00;
+}
+
