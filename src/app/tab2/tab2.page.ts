@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { NewProductComponent } from '../components/new-product/new-product.component';
 import { ViewProductComponent } from '../components/view-product/view-product.component';
 import { NewSaleComponent } from '../components/new-sale/new-sale.component';
@@ -7,6 +7,7 @@ import { NewCategoryComponent } from '../components/new-category/new-category.co
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ProductsService } from '../services/products.service';
 import { AlertsService } from '../services/alerts.service';
+
 interface Product {
   id: number;
   name: string;
@@ -35,6 +36,7 @@ export class Tab2Page {
     private _categoryService: CategoriaService,
     private _productService: ProductsService,
     private alertsService: AlertsService,
+    private alertController: AlertController
   ) {
     this._categoryService.getNewCategory.subscribe(category => {
       if (category) {
@@ -71,8 +73,43 @@ export class Tab2Page {
     });
   }
 
+  async deleteProduct(id: number) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Eliminar producto',
+      message: '¿Estás seguro de que quieres eliminar este producto?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'alert-button-cancel',
+        },
+        {
+          text: 'Si',
+          cssClass: 'alert-button-confirm',
+          handler: () => {
+            const observable = this._productService.deleteProductById(id);
+            observable.subscribe((response) => {
+              console.log('Producto eliminado correctamente');
+              this.alertsService.generateToast({
+                duration: 2000, color: 'success', icon: 'checkmark-circle', message: 'Producto eliminado', position: 'top'
+              });
+              this.getProducts();
+            }, (error) => {
+              console.log('No se pudo eliminar el producto');
+              this.alertsService.generateToast({
+                duration: 2000, color: 'danger', icon: 'warning', message: 'No se pudo eliminar el producto', position: 'top'
+              });
+            });
+          }
+        }
+      ]
+    });
 
-  deleteProduct(id: number) {
+    await alert.present();
+  }
+
+  /* deleteProduct(id: number) {
     const observable = this._productService.deleteProductById(id);
     observable.subscribe((response) => {
       console.log('Producto eliminado correctamente');
@@ -86,7 +123,8 @@ export class Tab2Page {
         duration: 2000, color: 'danger', icon: 'warning', message: 'No se pudo eliminar el producto', position: 'top'
       });
     });
-  }
+  } */
+
 
   getProducts() {
     this.products = []
@@ -118,6 +156,7 @@ export class Tab2Page {
     await modal.present();
   }
 
+  
   async openNewSale() {
     const modal = await this.modalCtrl.create({
       component: NewSaleComponent,

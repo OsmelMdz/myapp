@@ -6,6 +6,7 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { priceValid } from './price.validator';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { caducidadValid } from './caducidad.validator';
 
 @Component({
   selector: 'app-new-product',
@@ -37,7 +38,8 @@ export class NewProductComponent implements OnInit {
       image: [''],
       category_id: [0, Validators.required],
     }, {
-      validators: priceValid
+      //validators: priceValid
+      validators:[priceValid, caducidadValid]
     })
   }
 
@@ -64,6 +66,10 @@ export class NewProductComponent implements OnInit {
 
   validarPrecio() {
     return !!this.formProduct?.errors?.['priceError'];
+  }
+
+  validarExpired(){
+    return !!this.formProduct?.errors?.['expiredError'];
   }
 
   imageProduct(ev: any) {

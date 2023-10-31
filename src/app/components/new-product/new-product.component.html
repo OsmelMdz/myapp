@@ -17,10 +17,10 @@
       <ion-col size="12">
         <form [formGroup]="formProduct" (ngSubmit)="submit()">
 
-            <ion-item>
-              <ion-img class="imgadd" id="imgProd" #itemPicture [src]="imgProduct" (click)="imageProduct($event)">
-              </ion-img>
-            </ion-item>
+          <ion-item>
+            <ion-img class="imgadd" id="imgProd" #itemPicture [src]="imgProduct" (click)="imageProduct($event)">
+            </ion-img>
+          </ion-item>
 
           <ion-item>
             <ion-label position="stacked">Nombre</ion-label>
@@ -61,19 +61,22 @@
           </ion-item>
 
           <ion-row class="input-row">
-              <ion-item class="input-item">
-                <ion-button class="button-container" expand="block" class="rounded-button" color="success"  (click)="addCaducidad()" >
-                  {{caduca ? 'Quitar Caducidad' : 'Agregar Caducidad'}}
-                </ion-button>
-              </ion-item>
-              <ion-item class="input-item" *ngIf="caduca">
-                <br><br>
-                <ion-input type="date" formControlName="expired"></ion-input>
-              </ion-item>
+            <ion-item class="input-item">
+              <ion-button class="button-container" expand="block" class="rounded-button" color="success"
+                (click)="addCaducidad()">
+                {{caduca ? 'Quitar Caducidad' : 'Agregar Caducidad'}}
+              </ion-button>
+            </ion-item>
+            <ion-item class="input-item" *ngIf="caduca">
+              <ion-label position="stacked" class="custom-label"></ion-label>
+              <ion-input type="date" formControlName="expired"></ion-input>
+              <small *ngIf="validarExpired()" style="color: red">La fecha debe ser posterior</small>
+            </ion-item>
           </ion-row>
 
           <ion-item>
-            <ion-button [disabled]="!formProduct.valid" class="button-container" type="submit" expand="block" class="rounded-button">
+            <ion-button [disabled]="!formProduct.valid" class="button-container" type="submit" expand="block"
+              class="rounded-button">
               Guardar
             </ion-button>
           </ion-item>
