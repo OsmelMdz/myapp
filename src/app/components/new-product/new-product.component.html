@@ -16,7 +16,6 @@
     <ion-row>
       <ion-col size="12">
         <form [formGroup]="formProduct" (ngSubmit)="submit()">
-
           <ion-item>
             <ion-img class="imgadd" id="imgProd" #itemPicture [src]="imgProduct" (click)="imageProduct($event)">
             </ion-img>
@@ -75,9 +74,8 @@
           </ion-row>
 
           <ion-item>
-            <ion-button [disabled]="!formProduct.valid" class="button-container" type="submit" expand="block"
-              class="rounded-button">
-              Guardar
+            <ion-button [disabled]="!formProduct.valid" (click)="toggleEdit()" class="button-container" type="submit" expand="block" class="rounded-button">
+              {{ edit ? 'Actualizar' : 'Guardar' }}
             </ion-button>
           </ion-item>
 

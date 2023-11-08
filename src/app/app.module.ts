@@ -6,8 +6,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ComponentsModule } from './components/components.module';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],

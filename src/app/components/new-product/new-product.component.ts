@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -19,14 +19,25 @@ export class NewProductComponent implements OnInit {
   formProduct!: FormGroup;
   categorias: any[] = [];
   caduca: boolean = false;
-
+  edit: boolean = false;
+  productId = 0;
+  button: any;
   constructor(
     private modalCtrl: ModalController,
     private compressImg: NgxImageCompressService,
     private fb: FormBuilder,
     private productServ: ProductsService,
     private categoryService: CategoriaService,
-    private alertService: AlertsService) {
+    private alertService: AlertsService,
+    private nParams: NavParams) {
+    let info = this.nParams.get('datakey');
+    if (info) {
+      this.edit = true;
+      this.productId = info.id; // Asigna el ID del producto
+      this.imgProduct = info.image;
+      this.titulo = 'Editar Producto';
+    }
+    console.log(info);
     this.getCategorias();
     this.formProduct = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50),
@@ -38,12 +49,18 @@ export class NewProductComponent implements OnInit {
       image: [''],
       category_id: [0, Validators.required],
     }, {
-      //validators: priceValid
-      validators:[priceValid, caducidadValid]
+      validators: [priceValid, caducidadValid]
+
     })
+
+    this.formProduct.reset(info);
+    //this.imgProduct = info.image;
   }
 
-  addCaducidad(){
+  toggleEdit() {
+    this.edit = !this.edit;
+  }
+  addCaducidad() {
     this.caduca = !this.caduca;
   }
   getCategorias() {
@@ -68,7 +85,7 @@ export class NewProductComponent implements OnInit {
     return !!this.formProduct?.errors?.['priceError'];
   }
 
-  validarExpired(){
+  validarExpired() {
     return !!this.formProduct?.errors?.['expiredError'];
   }
 
@@ -116,9 +133,6 @@ export class NewProductComponent implements OnInit {
     return new Blob([ab], { type: mimeString })
 
   }
-
-
-
   submit() {
     console.log(this.formProduct.errors);
     const formdata = new FormData();
@@ -129,20 +143,42 @@ export class NewProductComponent implements OnInit {
     if (this.currentFile) {
       formdata.append('image', this.currentFile[0]);
     }
-    console.log('Formdata',formdata);
+    console.log('Formdata', formdata);
 
-    this.productServ.newProduct(formdata).subscribe((resp: any) => {
-      console.log(resp);
-      if (resp) {
-        this.productServ.setNewProduct(resp);
-        this.alertService.generateToast({
-          duration: 2000, color: 'success', icon: 'checkmark-circle', message: 'Producto creado', position: 'top'
-        });
-        this.formProduct.reset();
-      }
-    });
-    console.log(data);
+    if (this.edit) {
+      console.log('Actualizar producto');
+      this.productServ.newProduct(formdata).subscribe((resp: any) => {
+        console.log(resp);
+        if (resp) {
+          this.productServ.setNewProduct(resp);
+          this.alertService.generateToast({
+            duration: 2000,
+            color: 'success',
+            icon: 'checkmark-circle',
+            message: 'Producto creado',
+            position: 'top',
+          });
+          this.formProduct.reset();
+        }
+      });
+    } else {
+      this.productServ.updateProduct(formdata, this.productId).subscribe(
+        (resp: any) => {
+          console.log(resp);
+          if (resp) {
+            this.productServ.setNewProduct(resp);
+            this.alertService.generateToast({
+              duration: 2000,
+              color: 'success',
+              icon: 'checkmark-circle',
+              message: 'Producto actualizado',
+              position: 'top',
+            });
+            this.formProduct.reset();
+          }
+        }
+      );
+    }
   }
-
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { NewProductComponent } from '../components/new-product/new-product.component';
 import { ViewProductComponent } from '../components/view-product/view-product.component';
@@ -31,6 +31,25 @@ export class Tab2Page {
   vermas = true;
   filtrocategories: any[] = [];
 
+  isLargeScreen: boolean = true; // Inicialmente asumimos que la pantalla es grande
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.checkScreenSize();
+  }
+
+  ngOnInit() {
+    this.checkScreenSize(); // Verificar el tamaño de la pantalla al cargar el componente
+  }
+
+  checkScreenSize() {
+    // Obtener el ancho de la ventana
+    const windowWidth = window.innerWidth;
+
+    // Definir isLargeScreen en función del ancho de la ventana
+    this.isLargeScreen = windowWidth >= 768; // Puedes ajustar el valor según tus necesidades
+  }
+
   constructor(
     private modalCtrl: ModalController,
     private _categoryService: CategoriaService,
@@ -60,7 +79,7 @@ export class Tab2Page {
 
   verMenos() {
     this.vermas = true
-    this.categories = this.categories.slice(0, 6);
+    this.categories = this.categories.slice(0, 4);
   }
 
   getCategorias() {
@@ -131,6 +150,7 @@ export class Tab2Page {
     this._productService.getProduct().subscribe((resp: any) => {
       console.log('Products', resp);
       this.products = resp;
+      this.products.reverse();
     })
   }
 
@@ -156,7 +176,6 @@ export class Tab2Page {
     await modal.present();
   }
 
-  
   async openNewSale() {
     const modal = await this.modalCtrl.create({
       component: NewSaleComponent,
@@ -173,6 +192,15 @@ export class Tab2Page {
       mode: 'ios',
       initialBreakpoint: .4,
       backdropDismiss: false,
+    });
+    await modal.present();
+  }
+
+  async openEditProduct(prod: any) {
+    const modal = await this.modalCtrl.create({
+      component: NewProductComponent,
+      mode: 'ios',
+      componentProps: { datakey: prod },
     });
     await modal.present();
   }
