@@ -8,6 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { NewSaleComponent } from './new-sale/new-sale.component';
 import { NewCategoryComponent } from './new-category/new-category.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FilterProductsComponent } from './filter-products/filter-products.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ViewProductComponent,
     HeaderComponent,
     NewSaleComponent,
-    NewCategoryComponent
+    NewCategoryComponent,
+    FilterProductsComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ViewProductComponent,
     HeaderComponent,
     NewSaleComponent,
-    NewCategoryComponent
+    NewCategoryComponent,
+    FilterProductsComponent
+
   ]
 })
 export class ComponentsModule { }

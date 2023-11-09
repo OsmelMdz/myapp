@@ -21,7 +21,7 @@ export class NewProductComponent implements OnInit {
   caduca: boolean = false;
   edit: boolean = false;
   productId = 0;
-  button: any;
+
   constructor(
     private modalCtrl: ModalController,
     private compressImg: NgxImageCompressService,
@@ -31,6 +31,7 @@ export class NewProductComponent implements OnInit {
     private alertService: AlertsService,
     private nParams: NavParams) {
     let info = this.nParams.get('datakey');
+
     if (info) {
       this.edit = true;
       this.productId = info.id; // Asigna el ID del producto
@@ -50,30 +51,29 @@ export class NewProductComponent implements OnInit {
       category_id: [0, Validators.required],
     }, {
       validators: [priceValid, caducidadValid]
-
     })
-
     this.formProduct.reset(info);
-    //this.imgProduct = info.image;
   }
 
   toggleEdit() {
     this.edit = !this.edit;
   }
+
   addCaducidad() {
     this.caduca = !this.caduca;
   }
+
   getCategorias() {
     this.categoryService.getCategories().subscribe((resp: any) => {
       this.categorias = resp;
     })
   }
+
   ngOnInit() { }
 
   validaCtrl(control: string) {
     return !!this.formProduct.get(control)?.errors && this.formProduct.get(control)?.touched
   }
-
 
   async close() {
     await this.modalCtrl.dismiss();
@@ -95,9 +95,7 @@ export class NewProductComponent implements OnInit {
       this.generarURL(image);
       const blob = this.dataURItoBlob(image);
       this.currentFile![0] = blob;
-
     })
-
   }
 
   generarURL(image: any) { //solo genera la url para poder mostrarla
@@ -131,8 +129,8 @@ export class NewProductComponent implements OnInit {
       ia[i] = byteString.charCodeAt(i);
     }
     return new Blob([ab], { type: mimeString })
-
   }
+
   submit() {
     console.log(this.formProduct.errors);
     const formdata = new FormData();
@@ -144,7 +142,6 @@ export class NewProductComponent implements OnInit {
       formdata.append('image', this.currentFile[0]);
     }
     console.log('Formdata', formdata);
-
     if (this.edit) {
       console.log('Actualizar producto');
       this.productServ.newProduct(formdata).subscribe((resp: any) => {
@@ -158,6 +155,7 @@ export class NewProductComponent implements OnInit {
             message: 'Producto creado',
             position: 'top',
           });
+          this.modalCtrl.dismiss();
           this.formProduct.reset();
         }
       });
@@ -174,6 +172,7 @@ export class NewProductComponent implements OnInit {
               message: 'Producto actualizado',
               position: 'top',
             });
+            this.modalCtrl.dismiss();
             this.formProduct.reset();
           }
         }

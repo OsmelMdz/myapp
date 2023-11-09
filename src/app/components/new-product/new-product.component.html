@@ -16,19 +16,19 @@
     <ion-row>
       <ion-col size="12">
         <form [formGroup]="formProduct" (ngSubmit)="submit()">
-          <ion-item>
+          <ion-item lines="none">
             <ion-img class="imgadd" id="imgProd" #itemPicture [src]="imgProduct" (click)="imageProduct($event)">
             </ion-img>
           </ion-item>
 
-          <ion-item>
+          <ion-item lines="none">
             <ion-label position="stacked">Nombre</ion-label>
             <ion-input type="text" formControlName="name"></ion-input>
             <small *ngIf="validaCtrl('name')" style="color: red;">El nombre es obligatorio</small>
           </ion-item>
 
           <ion-row class="input-row">
-            <ion-item class="input-item">
+            <ion-item lines="none" class="input-item">
               <ion-label position="stacked">Categoría</ion-label>
               <ion-select type="number" placeholder="Selecciona una categoría" formControlName="category_id">
                 <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
@@ -39,20 +39,20 @@
           </ion-row>
 
           <ion-row class="input-row">
-            <ion-item class="input-item">
+            <ion-item lines="none" class="input-item">
               <ion-label position="stacked">Precio</ion-label>
               <ion-input type="number" formControlName="price"></ion-input>
               <small *ngIf="validaCtrl('price')" style="color: red">El precio es obligatorio</small>
             </ion-item>
 
-            <ion-item class="input-item">
+            <ion-item lines="none" class="input-item">
               <ion-label position="stacked">Stock</ion-label>
               <ion-input type="number" inputmode="numeric" formControlName="stock"></ion-input>
               <small *ngIf="validaCtrl('stock')" style="color: red">El stock es obligatorio</small>
             </ion-item>
           </ion-row>
 
-          <ion-item class="input-item">
+          <ion-item lines="none" class="input-item">
             <ion-label position="stacked" class="custom-label">Precio de venta</ion-label>
             <ion-input formControlName="price_sale" class="custom-field" type="number"></ion-input>
             <small *ngIf="validaCtrl('price_sale')" style="color: red">El precio de venta es obligatorio</small>
@@ -60,25 +60,23 @@
           </ion-item>
 
           <ion-row class="input-row">
-            <ion-item class="input-item">
+            <ion-item lines="none" class="input-item">
               <ion-button class="button-container" expand="block" class="rounded-button" color="success"
                 (click)="addCaducidad()">
                 {{caduca ? 'Quitar Caducidad' : 'Agregar Caducidad'}}
               </ion-button>
             </ion-item>
-            <ion-item class="input-item" *ngIf="caduca">
+            <ion-item lines="none" class="input-item" *ngIf="caduca">
               <ion-label position="stacked" class="custom-label"></ion-label>
               <ion-input type="date" formControlName="expired"></ion-input>
               <small *ngIf="validarExpired()" style="color: red">La fecha debe ser posterior</small>
             </ion-item>
           </ion-row>
-
-          <ion-item>
+          <ion-item lines="none">
             <ion-button [disabled]="!formProduct.valid" (click)="toggleEdit()" class="button-container" type="submit" expand="block" class="rounded-button">
               {{ edit ? 'Actualizar' : 'Guardar' }}
             </ion-button>
           </ion-item>
-
         </form>
       </ion-col>
     </ion-row>

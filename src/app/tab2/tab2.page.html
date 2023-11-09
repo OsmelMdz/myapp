@@ -2,7 +2,7 @@
 
 <ion-content>
 
-  <ion-searchbar mode="ios" placeholder="Buscar producto" (ionChange)="onSearchChange()"
+  <ion-searchbar mode="ios" placeholder="Buscar producto" (ionChange)="onSearchChange($event)"
     [debounce]="250"></ion-searchbar>
 
   <ion-grid>

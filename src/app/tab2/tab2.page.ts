@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { NewProductComponent } from '../components/new-product/new-product.component';
 import { ViewProductComponent } from '../components/view-product/view-product.component';
 import { NewSaleComponent } from '../components/new-sale/new-sale.component';
@@ -7,6 +7,7 @@ import { NewCategoryComponent } from '../components/new-category/new-category.co
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ProductsService } from '../services/products.service';
 import { AlertsService } from '../services/alerts.service';
+import { FilterProductsComponent } from '../components/filter-products/filter-products.component';
 
 interface Product {
   id: number;
@@ -55,7 +56,8 @@ export class Tab2Page {
     private _categoryService: CategoriaService,
     private _productService: ProductsService,
     private alertsService: AlertsService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private popCtrl: PopoverController
   ) {
     this._categoryService.getNewCategory.subscribe(category => {
       if (category) {
@@ -71,6 +73,25 @@ export class Tab2Page {
     this.getProducts();
     this.getCategorias();
   }
+
+  onSearchChange(e: any) {
+    console.log(e.detail.value);
+    this.presentPopover(e.detail.value);
+  }
+
+  async presentPopover(data: any) {
+    const pop = await this.popCtrl.create({
+      component: FilterProductsComponent,
+      event: data,
+      side: 'right',
+      componentProps: {
+        productos: data
+      }
+    });
+    await pop.present();
+  }
+
+
 
   verMas() {
     this.vermas = false;
@@ -88,7 +109,7 @@ export class Tab2Page {
       console.log('Categoria', res);
       this.filtrocategories = res;
       this.categories = res;
-      this.categories = this.categories.slice(0, 6);
+      this.categories = this.categories.slice(0, 4);
     });
   }
 
@@ -157,8 +178,7 @@ export class Tab2Page {
   categorias = ['Abarrotes', 'Frutas y verduras', 'Limpieza', 'Vinos y licores', 'Especias', 'Golosinas']
 
 
-  onSearchChange() {
-  }
+
 
   async openNewProduct() {
     const modal = await this.modalCtrl.create({
