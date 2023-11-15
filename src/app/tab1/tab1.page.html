@@ -2,7 +2,7 @@
 
 <!--Scroll de imagenes-->
 <ion-content>
-  <swiper-container [loop]="true" [pagination]="true" [autoplay]="{delay:3000}" #swiper [slidesPerView]="1.5">
+  <swiper-container size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="3" [loop]="true" [pagination]="true" [autoplay]="{delay:3000}" #swiper [slidesPerView]="1.5">
     <swiper-slide class="ion-padding" *ngFor="let prod of masVendidos">
       <ion-card>
         <ion-img  class="imagen2" [src]="prod.imagen"></ion-img>
@@ -16,7 +16,7 @@
   </ion-text>
   <swiper-container [autoplay]="{delay:3000}" #swiper [slidesPerView]="2.5">
     <swiper-slide *ngFor="let prod of productos">
-      <ion-card >
+      <ion-card size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="3">
         <ion-card-header class="ion-no-padding">
           <ion-item lines="none">
             <p>{{prod.name.length > 5 ? prod.name.substring(0, 5) + '...' : prod.name}}</p>
@@ -35,7 +35,7 @@
   <ion-text color="dark">
     <h1 class="ion-padding">Estadísticas</h1>
   </ion-text>
-  <div style="text-align:center">
+  <div size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="3" style="text-align:center">
     <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [xaxis]="chartOptions.xaxis!"
       [title]="chartOptions.title!"></apx-chart>
   </div>

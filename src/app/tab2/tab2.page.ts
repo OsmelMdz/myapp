@@ -7,7 +7,6 @@ import { NewCategoryComponent } from '../components/new-category/new-category.co
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ProductsService } from '../services/products.service';
 import { AlertsService } from '../services/alerts.service';
-import { FilterProductsComponent } from '../components/filter-products/filter-products.component';
 
 interface Product {
   id: number;
@@ -31,7 +30,6 @@ export class Tab2Page {
   products: Product[] = [];
   vermas = true;
   filtrocategories: any[] = [];
-
   isLargeScreen: boolean = true; // Inicialmente asumimos que la pantalla es grande
 
   @HostListener('window:resize', ['$event'])
@@ -46,7 +44,6 @@ export class Tab2Page {
   checkScreenSize() {
     // Obtener el ancho de la ventana
     const windowWidth = window.innerWidth;
-
     // Definir isLargeScreen en función del ancho de la ventana
     this.isLargeScreen = windowWidth >= 768; // Puedes ajustar el valor según tus necesidades
   }
@@ -76,20 +73,9 @@ export class Tab2Page {
 
   onSearchChange(e: any) {
     console.log(e.detail.value);
-    this.presentPopover(e.detail.value);
   }
 
-  async presentPopover(data: any) {
-    const pop = await this.popCtrl.create({
-      component: FilterProductsComponent,
-      event: data,
-      side: 'right',
-      componentProps: {
-        productos: data
-      }
-    });
-    await pop.present();
-  }
+
 
 
 
@@ -200,7 +186,7 @@ export class Tab2Page {
     const modal = await this.modalCtrl.create({
       component: NewSaleComponent,
       mode: 'ios',
-      initialBreakpoint: .4,
+      initialBreakpoint: .5,
       backdropDismiss: false,
     });
     await modal.present();
@@ -210,7 +196,7 @@ export class Tab2Page {
     const modal = await this.modalCtrl.create({
       component: NewCategoryComponent,
       mode: 'ios',
-      initialBreakpoint: .4,
+      initialBreakpoint: .5,
       backdropDismiss: false,
     });
     await modal.present();

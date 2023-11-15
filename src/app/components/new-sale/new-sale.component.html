@@ -12,12 +12,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar mode="ios" placeholder="Buscar producto" inputmode="decimal" type="decimal"
+  <ion-searchbar mode="ios" (ionChange)="onSearchChange($event)" placeholder="Buscar producto" inputmode="decimal" type="decimal"
     [debounce]="250"></ion-searchbar>
+    <ion-chip *ngFor="let item of chip">
+      {{item}}
+    </ion-chip>
     <ion-row>
       <ion-item class="input-item">
-        <ion-label position="stacked">Cantidad</ion-label>
-        <ion-input type="number" formControlName="productPrice" placeholder="Cantidad de productos" required></ion-input>
+        <ion-label position="stacked" id="cantidadLabel">Cantidad</ion-label>
+        <ion-input type="number" placeholder="Cantidad de productos" required aria-labelledby="cantidadLabel"></ion-input>
       </ion-item>
     </ion-row>
 
