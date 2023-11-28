@@ -1,10 +1,6 @@
 <app-header titulo="Mis Ventas"></app-header>
 <ion-content>
-  <ion-searchbar
-  mode="ios"
-  placeholder="Buscar producto"
-  (ionChange)="onSearchChange()"
-  [debounce]="250">
+  <ion-searchbar mode="ios" placeholder="Buscar producto" (ionChange)="onSearchChange()" [debounce]="250">
   </ion-searchbar>
 
   <ion-row class="input-row">
@@ -19,18 +15,17 @@
   </ion-row>
 
   <ion-list>
-    <ion-item lines="full" *ngFor="let x of [1,1,1,1]">
+    <ion-item lines="full" *ngFor="let sale of sales">
       <ion-thumbnail slot="start">
-        <img alt="Silhouette of mountains" src="https://m.media-amazon.com/images/I/71bUdzvnWHL.jpg" />
+        <img [src]="getImageForSale(sale.product_id)" alt="Producto">
       </ion-thumbnail>
       <ion-label>
-        Chetos
-        <p><b>Cantidad:</b> 3 </p>
-        <p><b>Total:</b> {{80 | currency}}</p>
+        <p><b>Producto:</b> {{ getProductName(sale.product_id) }} </p>
+        <p><b>Cantidad:</b> {{ sale.amount }} </p>
+        <p><b>Total:</b> {{ sale.total | currency }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
-
   <ion-item>
     <ion-button class="button-container" type="submit" class="rounded-button">
       Generar reporte

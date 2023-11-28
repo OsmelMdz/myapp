@@ -11,21 +11,21 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-<ion-grid>
+<ion-grid *ngFor="let p of products">
   <ion-row>
     <ion-col offset="2" size="8">
-      <img src="https://www.lg.com/mx/images/televisores/md07548054/gallery/DZ-06_v1.jpg" alt="">
-    </ion-col>
+      <img class="product-image"  alt="Silhouette of mountains" [src]="p.image" />
+          </ion-col>
   </ion-row>
   <ion-list>
     <ion-item>
-      <ion-label>Nombre: SmartTV</ion-label>
+      <ion-label>{{p.name}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>Descripción: es una television</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Precio: {{17 | currency}}</ion-label>
+      <ion-card-content>
+        <p><b>Stock:</b> {{p.stock}}</p>
+        <p><b>Precio:</b> {{p.price | currency}}</p>
+      </ion-card-content>
     </ion-item>
   </ion-list>
 </ion-grid>

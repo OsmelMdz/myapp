@@ -12,21 +12,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar mode="ios" (ionChange)="onSearchChange($event)" placeholder="Buscar producto" inputmode="decimal" type="decimal"
-    [debounce]="250"></ion-searchbar>
-    <ion-chip *ngFor="let item of chip">
-      {{item}}
-    </ion-chip>
+  <form [formGroup]="formSale" (ngSubmit)="compra()">
+    <!-- ... tus otros campos ... -->
+    <ion-searchbar mode="ios" (ionChange)="onSearchChange($event)" placeholder="Buscar producto" inputmode="decimal"
+      type="decimal" [debounce]="250"></ion-searchbar>
+      <ion-chip [ngClass]="{'stock-low': item.stock < 15}" *ngFor="let item of chip">
+        {{item.name}}
+      </ion-chip>
     <ion-row>
       <ion-item class="input-item">
         <ion-label position="stacked" id="cantidadLabel">Cantidad</ion-label>
-        <ion-input type="number" placeholder="Cantidad de productos" required aria-labelledby="cantidadLabel"></ion-input>
+        <ion-input formControlName="amount" type="number" placeholder="Cantidad de productos"></ion-input>
+        <small *ngIf="formSale.get('amount')?.errors?.['required']" style="color: red">La cantidad es obligatoria</small>
+        <small *ngIf="formSale.get('amount')?.errors?.['min']" style="color: red">La cantidad debe ser mayor a 0</small>
       </ion-item>
     </ion-row>
-
     <ion-item>
-      <ion-button class="button-container" type="submit" class="rounded-button">
-        Guardar
+      <ion-button class="button-container" [disabled]="!formSale.valid" type="submit" expand="block"
+        class="rounded-button">
+        Compra
       </ion-button>
     </ion-item>
+  </form>
+
 </ion-content>

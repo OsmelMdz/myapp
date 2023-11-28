@@ -7,6 +7,7 @@ import { NewCategoryComponent } from '../components/new-category/new-category.co
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ProductsService } from '../services/products.service';
 import { AlertsService } from '../services/alerts.service';
+import { SaleService } from '../services/sale.service';
 
 interface Product {
   id: number;
@@ -32,6 +33,7 @@ export class Tab2Page {
   filtrocategories: any[] = [];
   isLargeScreen: boolean = true; // Inicialmente asumimos que la pantalla es grande
 
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.checkScreenSize();
@@ -54,8 +56,21 @@ export class Tab2Page {
     private _productService: ProductsService,
     private alertsService: AlertsService,
     private alertController: AlertController,
-    private popCtrl: PopoverController
+    private _saleService: SaleService
   ) {
+    this._saleService.getNewSale.subscribe(sale => {
+      if (sale) {
+        // Actualiza el producto existente en la lista con la nueva información de stock
+        const updatedProductIndex = this.products.findIndex(product => product.id === sale.product.id);
+
+        if (updatedProductIndex !== -1) {
+          this.products[updatedProductIndex].stock = sale.product.stock;
+        } else {
+          // Si no se encuentra el producto en la lista, puedes agregarlo
+          this.products.push(sale.product);
+        }
+      }
+    });
     this._categoryService.getNewCategory.subscribe(category => {
       if (category) {
         this.categories.push(category);
@@ -74,10 +89,6 @@ export class Tab2Page {
   onSearchChange(e: any) {
     console.log(e.detail.value);
   }
-
-
-
-
 
   verMas() {
     this.vermas = false;
@@ -160,6 +171,24 @@ export class Tab2Page {
       this.products.reverse();
     })
   }
+
+  getProductById(productId: string) {
+    this._productService.getProduct().subscribe((resp: any) => {
+      console.log('Products', resp);
+
+      // Buscar el producto por ID en la respuesta
+      const productById = resp.find((product: any) => product.id === productId);
+
+      if (productById) {
+        console.log('Product by ID', productById);
+        // Aquí puedes realizar las acciones que desees con el producto encontrado
+      } else {
+        console.log('Product not found');
+        // Puedes manejar el caso en que el producto no sea encontrado
+      }
+    });
+  }
+
 
   categorias = ['Abarrotes', 'Frutas y verduras', 'Limpieza', 'Vinos y licores', 'Especias', 'Golosinas']
 

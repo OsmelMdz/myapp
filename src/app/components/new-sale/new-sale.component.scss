@@ -2,6 +2,12 @@ ion-title {
   font-size: 20px;
 }
 
+.stock-low {
+  background-color: #fa3535; /* Cambia el color según tus preferencias */
+  color: #ffffff; /* Cambia el color del texto según tus preferencias */
+  /* Otros estilos para indicar que el stock es bajo */
+}
+
 ion-input {
   width: 100%;
   border-radius: 5px;

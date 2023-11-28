@@ -45,7 +45,7 @@ export class NewProductComponent implements OnInit {
       Validators.minLength(1)]],
       price: [0, Validators.required],
       price_sale: [0, Validators.required],
-      stock: [0, Validators.required],
+      stock: [, Validators.required],
       expired: [null],
       image: [''],
       category_id: [0, Validators.required],
@@ -58,6 +58,8 @@ export class NewProductComponent implements OnInit {
   toggleEdit() {
     this.edit = !this.edit;
   }
+
+
 
   addCaducidad() {
     this.caduca = !this.caduca;
@@ -155,6 +157,7 @@ export class NewProductComponent implements OnInit {
             message: 'Producto creado',
             position: 'top',
           });
+          this.close();
           this.modalCtrl.dismiss();
           this.formProduct.reset();
         }
@@ -172,6 +175,7 @@ export class NewProductComponent implements OnInit {
               message: 'Producto actualizado',
               position: 'top',
             });
+            this.close();
             this.modalCtrl.dismiss();
             this.formProduct.reset();
           }

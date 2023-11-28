@@ -32,4 +32,12 @@ export class ProductsService {
   updateProduct(datos: any, id: number) {
     return this.http.post(`${this.URL}/actualizarProducto/${id}`, datos)
   }
+  //* Obtener Producto por ID */
+  getProductById(id: number) {
+    return this.http.get(`${this.URL}/producto/${id}`)
+  }
+  //*Actualizar Producto solo el stock */
+  updateStock(datos: any, id: number) {
+    return this.http.post(`${this.URL}/actualizarProductoStock/${id}`, datos)
+  }
 }

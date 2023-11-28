@@ -57,6 +57,7 @@ export class NewCategoryComponent implements OnInit {
         this.alertService.generateToast({
           duration:800,  color: 'success', icon: 'checkmark-circle', message: 'Categoria creada', position: 'top'
           });
+          this.close();
           this.formCategory.reset();
       }
     });
