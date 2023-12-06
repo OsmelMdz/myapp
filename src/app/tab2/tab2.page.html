@@ -2,7 +2,7 @@
 
 <ion-content>
 
-  <ion-searchbar mode="ios" placeholder="Buscar producto" (ionChange)="onSearchChange($event)"
+  <ion-searchbar mode="ios" placeholder="Buscar producto"
     [debounce]="250"></ion-searchbar>
 
   <ion-grid>
@@ -35,7 +35,7 @@
     <ion-row>
       <ion-col class="cards" size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="3"
         *ngFor="let cat of categories">
-        <ion-button [color]="cat.color" class="ion-text-uppercase" expand="block" shape="round">
+        <ion-button (click)="filtrarporcat(cat)" [color]="cat.color" class="ion-text-uppercase" expand="block" shape="round">
           <p>
             {{cat.name.length > 12 ? cat.name.substr(0,10) + '...' : cat.name}}
           </p>
@@ -71,58 +71,58 @@
   <ion-grid>
     <ion-row class="ion-justify-content-start">
       <ng-container *ngFor="let p of products">
-        <ng-container *ngIf="isLargeScreen; else smallScreen">
-          <ion-col size-lg="4" size-md="6" size-sm="6" size-xs="12">
-            <ion-card>
-              <img class="product-image" (click)="openViewProduct()" alt="Silhouette of mountains" [src]="p.image" />
-              <ion-card-header>
-                <ion-card-title>
+          <ng-container *ngIf="isLargeScreen; else smallScreen">
+            <ion-col size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-card>
+                <img class="product-image" (click)="openViewProduct()" alt="Silhouette of mountains" [src]="p.image" />
+                <ion-card-header>
+                  <ion-card-title>
+                    {{p.name}}
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <p><b>Stock:</b> {{p.stock}}</p>
+                  <p><b>Precio:</b> {{p.price | currency}}</p>
+                </ion-card-content>
+                <ion-footer lines="full">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col>
+                        <ion-button (click)="openEditProduct(p)" fill="clear">
+                          <ion-icon slot="icon-only" name="create" color="success"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+                      <ion-col>
+                        <ion-button (click)="deleteProduct(p.id)" fill="clear">
+                          <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-footer>
+              </ion-card>
+            </ion-col>
+          </ng-container>
+          <ng-template #smallScreen>
+            <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="3">
+              <ion-item>
+                <ion-thumbnail (click)="openViewProduct()" slot="start">
+                  <img alt="Silhouette of mountains" [src]="p.image" />
+                </ion-thumbnail>
+                <ion-label>
                   {{p.name}}
-                </ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <p><b>Stock:</b> {{p.stock}}</p>
-                <p><b>Precio:</b> {{p.price | currency}}</p>
-              </ion-card-content>
-              <ion-footer lines="full">
-                <ion-grid>
-                  <ion-row>
-                    <ion-col>
-                      <ion-button (click)="openEditProduct(p)" fill="clear">
-                        <ion-icon slot="icon-only" name="create" color="success"></ion-icon>
-                      </ion-button>
-                    </ion-col>
-                    <ion-col>
-                      <ion-button (click)="deleteProduct(p.id)" fill="clear">
-                        <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
-                      </ion-button>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-              </ion-footer>
-            </ion-card>
-          </ion-col>
-        </ng-container>
-        <ng-template #smallScreen>
-          <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="3">
-            <ion-item>
-              <ion-thumbnail (click)="openViewProduct()" slot="start">
-                <img alt="Silhouette of mountains" [src]="p.image" />
-              </ion-thumbnail>
-              <ion-label>
-                {{p.name}}
-                <p><b>Stock:</b> {{p.stock}}</p>
-                <p><b>Precio:</b> {{p.price | currency}}</p>
-              </ion-label>
-              <ion-button fill="clear">
-                <ion-icon slot="icon-only" name="create" color="success"></ion-icon>
-              </ion-button>
-              <ion-button (click)="deleteProduct(p.id)" fill="clear">
-                <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
-              </ion-button>
-            </ion-item>
-          </ion-col>
-        </ng-template>
+                  <p><b>Stock:</b> {{p.stock}}</p>
+                  <p><b>Precio:</b> {{p.price | currency}}</p>
+                </ion-label>
+                <ion-button fill="clear">
+                  <ion-icon slot="icon-only" name="create" color="success"></ion-icon>
+                </ion-button>
+                <ion-button (click)="deleteProduct(p.id)" fill="clear">
+                  <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-col>
+          </ng-template>
       </ng-container>
     </ion-row>
   </ion-grid>

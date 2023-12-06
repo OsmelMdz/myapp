@@ -45,6 +45,7 @@
     "@ionic/angular-toolkit": "^9.0.0",
     "@types/jasmine": "~4.3.0",
     "@types/node": "^12.11.1",
+    "@types/pdfmake": "^0.2.8",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
     "eslint": "^7.26.0",
@@ -59,6 +60,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "pdfmake": "^0.2.8",
     "ts-node": "^8.3.0",
     "typescript": "~5.0.2"
   },

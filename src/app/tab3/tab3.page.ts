@@ -4,6 +4,7 @@ import { CategoriaService } from '../services/categoria.service';
 import { ProductsService } from '../services/products.service';
 import { AlertsService } from '../services/alerts.service';
 import { SaleService } from '../services/sale.service';
+import * as pdfMake from 'pdfmake/build/pdfmake';
 
 interface Product {
   id: number;
@@ -45,11 +46,12 @@ export class Tab3Page {
   products: Product[] = [];
 
 
+
   constructor(
     private modalCtrl: ModalController,
     private _categoryService: CategoriaService,
     private _productService: ProductsService,
-    private alertsService: AlertsService,
+    private alertService: AlertsService,
     private alertController: AlertController,
     private _saleService: SaleService
   ) {
@@ -122,6 +124,51 @@ export class Tab3Page {
         // Puedes manejar el caso en que el producto no sea encontrado
       }
     });
+  }
+
+
+
+  generatePDF(sales: any) {
+    try {
+      // Definir el contenido del PDF
+      const documentDefinition = {
+        content: [
+          { text: 'Reporte de productos', style: 'header' },
+          '\n\n',
+          {
+            table: {
+              headerRows: 1,
+              widths: ['*', 'auto', 'auto'],
+              body: [
+                ['Nombre del producto', 'amount', 'total'],
+                ...sales.map((p: any) => [this.getProductName(p.product_id), p.amount, p.total]),
+              ],
+            },
+          },
+        ],
+        styles: {
+          header: {
+            fontSize: 18,
+            bold: true,
+          },
+        },
+      };
+      // Crear el PDF
+      const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
+      this.alertService.generateToast({
+        duration: 2000,
+        color: 'success',
+        icon: 'checkmark-circle',
+        message: 'Reporte realizado',
+        position: 'bottom',
+      });
+
+      // Descargar el PDF
+      pdfDocGenerator.download('Reporte_de_productos.pdf');
+    } catch (error) {
+      console.error('Error al generar el PDF:', error);
+      // Aquí podrías manejar el error de otra manera, como mostrar un mensaje al usuario.
+    }
   }
 
 

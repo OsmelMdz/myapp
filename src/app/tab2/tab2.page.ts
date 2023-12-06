@@ -26,6 +26,9 @@ interface Product {
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  productosFiltrados: any[] = [];
+  originalProducts: any[] = [];
+  info: any;
   titulo = 'Mis productos';
   categories: any[] = [];
   products: Product[] = [];
@@ -86,9 +89,6 @@ export class Tab2Page {
     this.getCategorias();
   }
 
-  onSearchChange(e: any) {
-    console.log(e.detail.value);
-  }
 
   verMas() {
     this.vermas = false;
@@ -142,26 +142,13 @@ export class Tab2Page {
         }
       ]
     });
-
     await alert.present();
   }
 
-  /* deleteProduct(id: number) {
-    const observable = this._productService.deleteProductById(id);
-    observable.subscribe((response) => {
-      console.log('Producto eliminado correctamente');
-      this.alertsService.generateToast({
-        duration: 2000, color: 'success', icon: 'checkmark-circle', message: 'Producto eliminado', position: 'top'
-      });
-      this.getProducts();
-    }, (error) => {
-      console.log('No se pudo eliminar el producto');
-      this.alertsService.generateToast({
-        duration: 2000, color: 'danger', icon: 'warning', message: 'No se pudo eliminar el producto', position: 'top'
-      });
-    });
-  } */
-
+  filtrarporcat(category: any) {
+    this.productosFiltrados = this.originalProducts.filter((prod) => prod.category_id === category.id);
+    this.products = this.productosFiltrados;
+  }
 
   getProducts() {
     this.products = []
@@ -169,6 +156,7 @@ export class Tab2Page {
       console.log('Products', resp);
       this.products = resp;
       this.products.reverse();
+      this.originalProducts = resp;
     })
   }
 
@@ -189,11 +177,7 @@ export class Tab2Page {
     });
   }
 
-
   categorias = ['Abarrotes', 'Frutas y verduras', 'Limpieza', 'Vinos y licores', 'Especias', 'Golosinas']
-
-
-
 
   async openNewProduct() {
     const modal = await this.modalCtrl.create({
