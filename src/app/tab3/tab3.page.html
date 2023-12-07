@@ -15,8 +15,13 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
+  <!-- Agrega el Refresher -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingText="Desliza para recargar"
+      refreshingText="Recargando...">
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-item lines="full" *ngFor="let sale of sales">
       <ion-thumbnail slot="start">

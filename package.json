@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
-    "@ionic/angular": "^7.4.1",
+    "@ionic/angular": "^7.6.0",
     "apexcharts": "^3.43.0",
     "ionicons": "^7.0.0",
     "moment": "^2.29.4",

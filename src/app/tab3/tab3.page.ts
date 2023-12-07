@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductsService } from '../services/products.service';
 import { AlertsService } from '../services/alerts.service';
 import { SaleService } from '../services/sale.service';
+import { RefresherEventDetail } from '@ionic/angular';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 
 interface Product {
@@ -57,6 +58,19 @@ export class Tab3Page {
       }
     });
     this.getSale();
+  }
+
+  doRefresh(event: CustomEvent<RefresherEventDetail>) {
+    // Aquí colocas la lógica de recarga de tus datos de ventas
+    // por ejemplo, puedes llamar a una función que obtenga los datos actualizados
+    this.sales = [];
+    // Simula una operación asíncrona (puedes reemplazar esto con tu lógica)
+    setTimeout(() => {
+      console.log('Recargando datos de ventas...');
+
+      // Indica al componente Refresher que la operación ha terminado
+      event.detail.complete();
+    }, 1000); // Tiempo de espera simulado en milisegundos
   }
 
   onSearchChange(event: any) {
