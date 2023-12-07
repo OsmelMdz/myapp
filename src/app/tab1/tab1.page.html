@@ -1,22 +1,26 @@
 <app-header titulo="Home"></app-header>
 
-<!--Scroll de imagenes-->
-<ion-content>
-  <swiper-container size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="3" [loop]="true" [pagination]="true" [autoplay]="{delay:3000}" #swiper [slidesPerView]="1.5">
-    <swiper-slide class="ion-padding" *ngFor="let prod of masVendidos">
-      <ion-card>
-        <ion-img  class="imagen2" [src]="prod.imagen"></ion-img>
-      </ion-card>
+<!-- Scroll de imágenes -->
+<ion-content class="ion-padding">
+  <swiper-container [autoplay]="{delay:3000}" #swiper [slidesPerView]="1">
+    <swiper-slide class="ion-padding" *ngFor="let prod of products">
+      <ion-col size-lg="4" size-md="6" size-sm="6" size-xs="12">
+        <ion-card>
+          <ion-img class="imagen2" [src]="prod.image"></ion-img>
+        </ion-card>
+      </ion-col>
     </swiper-slide>
   </swiper-container>
 
-  <!--Lo mas vendido-->
+
+  <!-- Lo más vendido -->
   <ion-text color="dark">
     <h1 class="ion-padding">Lo más vendido</h1>
   </ion-text>
-  <swiper-container [autoplay]="{delay:3000}" #swiper [slidesPerView]="2.5">
-    <swiper-slide *ngFor="let prod of productos">
-      <ion-card size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="3">
+  <swiper-container [autoplay]="{delay:3000}" #swiper [slidesPerView]="1">
+    <swiper-slide *ngFor="let prod of filtrosventas">
+      <ion-col size-lg="4" size-md="6" size-sm="6" size-xs="12">
+      <ion-card>
         <ion-card-header class="ion-no-padding">
           <ion-item lines="none">
             <p>{{prod.name.length > 5 ? prod.name.substring(0, 5) + '...' : prod.name}}</p>
@@ -25,19 +29,29 @@
           </ion-item>
         </ion-card-header>
         <ion-card-content>
-          <ion-img class="imagen"  [src]="prod.imagen"></ion-img>
-          <h3 class="ion-padding precio">{{prod.precio | currency}}</h3>
+          <ion-img class="imagen" [src]="prod.image"></ion-img>
+          <ion-item lines="none">
+            <ion-label>
+              <p>{{prod.price | currency}}</p>
+            </ion-label>
+            <ion-button slot="end" fill="outline" color="success">
+              <ion-icon slot="icon-only" name="cart"></ion-icon>
+            </ion-button>
+          </ion-item>
         </ion-card-content>
       </ion-card>
+      </ion-col>
     </swiper-slide>
   </swiper-container>
-  <!--Estadísticas-->
+
+  <!-- Estadísticas -->
   <ion-text color="dark">
     <h1 class="ion-padding">Estadísticas</h1>
   </ion-text>
-  <div size-xs="12" size-sm="6" size-md="6" size-lg="4" size-xl="3" style="text-align:center">
+  <div class="ion-padding" style="text-align:center" *ngIf="chartOptions">
     <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [xaxis]="chartOptions.xaxis!"
       [title]="chartOptions.title!"></apx-chart>
   </div>
+
 
 </ion-content>

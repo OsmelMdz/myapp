@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { AlertController, ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, NavParams, PopoverController, ToastController } from '@ionic/angular';
 import { NewProductComponent } from '../components/new-product/new-product.component';
 import { ViewProductComponent } from '../components/view-product/view-product.component';
 import { NewSaleComponent } from '../components/new-sale/new-sale.component';
@@ -20,12 +20,22 @@ interface Product {
   category_id: number;
   state: boolean;
 }
+
+interface Sale {
+  id: number;
+  product_id: number;
+  quantity: number;
+  total: number;
+  amount: number;
+}
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+
   productosFiltrados: any[] = [];
   originalProducts: any[] = [];
   info: any;
@@ -35,7 +45,18 @@ export class Tab2Page {
   vermas = true;
   filtrocategories: any[] = [];
   isLargeScreen: boolean = true; // Inicialmente asumimos que la pantalla es grande
-
+  salesFiltrados: any[] = [];
+  originalVentas: any[] = [];
+  filtrosventas: any[] = [];
+  sales: Sale[] = [];
+  cantidad: number = 0;
+  chip: any[] = [];
+  busquedaRealizada: boolean = false;
+  selectedProduct: any = null;
+  stock: Product[] = []; // Este valor debe ser dinámico según tu lógica de negocio
+  productId = 0;
+  price_sale: number = 0;
+  busquedaP: any[] = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
@@ -59,17 +80,15 @@ export class Tab2Page {
     private _productService: ProductsService,
     private alertsService: AlertsService,
     private alertController: AlertController,
-    private _saleService: SaleService
+    private _saleService: SaleService,
   ) {
     this._saleService.getNewSale.subscribe(sale => {
       if (sale) {
-        // Actualiza el producto existente en la lista con la nueva información de stock
         const updatedProductIndex = this.products.findIndex(product => product.id === sale.product.id);
 
         if (updatedProductIndex !== -1) {
           this.products[updatedProductIndex].stock = sale.product.stock;
         } else {
-          // Si no se encuentra el producto en la lista, puedes agregarlo
           this.products.push(sale.product);
         }
       }
@@ -103,7 +122,7 @@ export class Tab2Page {
   getCategorias() {
     this.categories = []
     this._categoryService.getCategories().subscribe((res: any) => {
-      console.log('Categoria', res);
+      console.log('GetCategorias:', res);
       this.filtrocategories = res;
       this.categories = res;
       this.categories = this.categories.slice(0, 4);
@@ -148,12 +167,13 @@ export class Tab2Page {
   filtrarporcat(category: any) {
     this.productosFiltrados = this.originalProducts.filter((prod) => prod.category_id === category.id);
     this.products = this.productosFiltrados;
+    console.log('Productos filtrados:', this.productosFiltrados);
   }
 
   getProducts() {
     this.products = []
     this._productService.getProduct().subscribe((resp: any) => {
-      console.log('Products', resp);
+      console.log('GetProductos:', resp);
       this.products = resp;
       this.products.reverse();
       this.originalProducts = resp;
@@ -176,8 +196,6 @@ export class Tab2Page {
       }
     });
   }
-
-  categorias = ['Abarrotes', 'Frutas y verduras', 'Limpieza', 'Vinos y licores', 'Especias', 'Golosinas']
 
   async openNewProduct() {
     const modal = await this.modalCtrl.create({
@@ -224,8 +242,21 @@ export class Tab2Page {
     await modal.present();
   }
 
-  onClick() {
-    console.log('Holaaaa');
+  onSearchChange(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    console.log('Productos:', this.products);
+    this.busquedaP = this.products.filter((producto: any) => {
+      const productName = producto.name.toLowerCase();
+      console.log('Nombre del producto:', productName);
+      return productName.includes(searchTerm);
+
+    });
+    console.log('Productos Filtrados:', this.busquedaP);
+  }
+
+  getProductName(product_id: number): string | undefined {
+    const product = this.products.find(product => product.id === product_id);
+    return product ? product.name : 'Nombre no encontrado';
   }
 
 }

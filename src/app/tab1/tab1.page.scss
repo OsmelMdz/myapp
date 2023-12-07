@@ -15,8 +15,8 @@ swiper-slide {
   align-items: center;
   justify-content: center;
 
-  width: 100%;
-  height: 100%;
+  width: 5%;
+  height: 5%;
 
   font-size: 18px;
 
@@ -27,35 +27,63 @@ swiper-slide {
 
 
 swiper-slide img {
-  width: auto;
+  width: 5%;
   max-width: 100%;
-  height: auto;
+  height: 5%;
   max-height: 100%;
 }
 
 
-//Para telefonos
-@media (max-width: 767px) {
-  .imagen {
-      width: 100px;
-      height: 80px;
+ion-card {
+  ion-card-header {
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
-  .imagen2 {
-    padding: 0px 0px 0px 0px;
-    margin-right: auto;
-    margin-left: auto;
-    width: 200px;
-    height: 250px;
-}
-}
-//Para medidas mas grandes
-@media (min-width: 768px) {
-  .imagen {
-      width: 400px;
-      height: 400px;
+
+  .card-img {
+    max-width: 50%;
+    max-height: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+    margin-left: 25%;
   }
-  .imagen2 {
-    width: 800px;
-    height: 500px;
+
+  ion-footer {
+    ion-col {
+      display: flex;
+      justify-content: center;
+
+      ion-chip {
+        --background: white;
+        color: dimgrey;
+        padding: 0 0 0 5px;
+        font-size: 12px;
+        height: 12px;
+
+        ion-icon {
+          height: 14px;
+          width: 14px;
+        }
+      }
+    }
+  }
 }
+
+.bold {
+  font-weight: 600;
 }
+
+.guy-longname {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-image {
+  max-width: 50%;
+  max-height: 50%;
+  object-fit: cover;
+  margin: 0 auto;
+  margin-left: 25%;
+}
+

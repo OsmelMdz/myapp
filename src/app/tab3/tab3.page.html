@@ -1,18 +1,21 @@
 <app-header titulo="Mis Ventas"></app-header>
 <ion-content>
-  <ion-searchbar mode="ios" placeholder="Buscar producto" (ionChange)="onSearchChange()" [debounce]="250">
+  <ion-searchbar #searchbar (ionChange)="onSearchChange($event)" mode="ios" placeholder="Buscar producto" [debounce]="250">
   </ion-searchbar>
 
-  <ion-row class="input-row">
-    <ion-item class="input-item">
-      <ion-label position="stacked">Fecha de inicio</ion-label><br>
-      <input type="date" required>
-    </ion-item>
-    <ion-item class="input-item">
-      <ion-label position="stacked">Fecha de termino</ion-label><br>
-      <input type="date" required>
-    </ion-item>
-  </ion-row>
+  <ion-grid >
+    <ion-row>
+      <ion-col size="6">
+        <ion-label >Fecha de inicio</ion-label>
+        <ion-input type="date" fill="outline" placeholder="Adquisicion" [(ngModel)]="fechaInicio" (ionChange)="onDateChange()"></ion-input>
+      </ion-col>
+      <ion-col size="6">
+        <ion-label >Fecha de termino</ion-label>
+        <ion-input type="date" fill="outline" placeholder="Vencimiento" [(ngModel)]="fechaFin" (ionChange)="onDateChange()"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 
   <ion-list>
     <ion-item lines="full" *ngFor="let sale of sales">
@@ -26,6 +29,7 @@
       </ion-label>
     </ion-item>
   </ion-list>
+
   <ion-item>
     <ion-button class="button-container" (click)="generatePDF(sales)" type="submit" class="rounded-button">
       Generar reporte

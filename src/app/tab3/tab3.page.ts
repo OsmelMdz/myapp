@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { CategoriaService } from '../services/categoria.service';
 import { ProductsService } from '../services/products.service';
 import { AlertsService } from '../services/alerts.service';
 import { SaleService } from '../services/sale.service';
@@ -26,60 +24,65 @@ interface Sale {
   amount: number;
 }
 
-
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page {
-  getProductImage(arg0: number) {
-    throw new Error('Method not implemented.');
-  }
 
-  titulo = 'Mis productos';
-  categories: any[] = [];
-  vermas = true;
-  filtrocategories: any[] = [];
+export class Tab3Page {
   isLargeScreen: boolean = true;
   sales: Sale[] = [];
   products: Product[] = [];
-
-
+  fechaInicio: string = '';
+  fechaFin: string = '';
+  productosFiltrados: any[] = [];
 
   constructor(
-    private modalCtrl: ModalController,
-    private _categoryService: CategoriaService,
     private _productService: ProductsService,
     private alertService: AlertsService,
-    private alertController: AlertController,
     private _saleService: SaleService
   ) {
-    this._saleService.getNewSale.subscribe(sale => {
-      if (sale) {
-        // Actualiza el producto existente en la lista con la nueva información de stock
-        const updatedProductIndex = this.products.findIndex(product => product.id === sale.product.id);
-
-        if (updatedProductIndex !== -1) {
-          this.products[updatedProductIndex].stock = sale.product.stock;
-        } else {
-          // Si no se encuentra el producto en la lista, puedes agregarlo
-          this.products.push(sale.product);
-        }
-      }
-    });
     this._productService.getNewProduct.subscribe(product => {
       if (product) {
         this.getProducts();
         this.products.push(product);
       }
     });
+    this.getProducts();
+    this._saleService.getNewSale.subscribe(sale => {
+      if (sale) {
+        this.getSale();
+        this.sales.push(sale);
+      }
+    });
     this.getSale();
+  }
+
+  onSearchChange(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+    console.log('Productos:', this.products);
+    this.productosFiltrados = this.products.filter((producto: any) => {
+      const productName = producto.name.toLowerCase();
+      console.log('Nombre del producto:', productName);
+            return productName.includes(searchTerm);
+    });
+    console.log('Productos Filtrados:', this.productosFiltrados);
+  }
+
+  onDateChange() {
+    console.log('Fecha de inicio:', this.fechaInicio);
+    console.log('Fecha de fin:', this.fechaFin);
+
     this.getProducts();
   }
 
-  onSearchChange() {
+  onSwiper(swiper: any) {
+    console.log(swiper);
   }
+
+
+
 
   getProductName(product_id: number): string | undefined {
     const product = this.products.find(product => product.id === product_id);
@@ -91,46 +94,83 @@ export class Tab3Page {
     return product ? product.image : 'https://ionicframework.com/docs/img/demos/card-media.png';
   }
 
-  getSale() {
-    this.sales = []
-    this._saleService.getSale().subscribe((resp: any) => {
-      console.log('Sales', resp);
-      this.sales = resp;
+  getProducts() {
+    this.products = [];
+    this._productService.getProduct().subscribe((resp: any) => {
+
+      this.products = resp.filter((producto: any) => {
+        const productoExpiredDate = new Date(producto.expired);
+        const fechaInicioDate = this.fechaInicio ? new Date(this.fechaInicio) : null;
+        const fechaFinDate = this.fechaFin ? new Date(this.fechaFin) : null;
+
+        if (fechaInicioDate && productoExpiredDate < fechaInicioDate) {
+          return false;
+        }
+
+        if (fechaFinDate && productoExpiredDate > fechaFinDate) {
+          return false;
+        }
+
+        return true;
+      });
+
+      console.log('Producto(s) que expiran en:', this.fechaInicio, this.products);
+      console.log('Producto(s) que expiran en:', this.fechaFin, this.products);
+      this.products.reverse();
+    });
+    this._saleService.getSale().subscribe((ventas: any[]) => {
+      this.sales = ventas.filter((venta: any) => {
+        const ventaDate = new Date(venta.created_at);
+        const fechaInicioDate = this.fechaInicio ? new Date(this.fechaInicio) : null;
+        const fechaFinDate = this.fechaFin ? new Date(this.fechaFin) : null;
+
+        if (fechaInicioDate && ventaDate < fechaInicioDate) {
+          return false;
+        }
+
+        if (fechaFinDate && ventaDate > fechaFinDate) {
+          return false;
+        }
+
+        return true;
+      });
+
+      console.log('Ventas realizadas desde:', this.fechaInicio, this.sales);
+      console.log('Ventas realizadas hasta:', this.fechaFin, this.sales);
       this.sales.reverse();
-    })
+    });
   }
 
-  getProducts() {
-    this.products = []
-    this._productService.getProduct().subscribe((resp: any) => {
-      console.log('Products', resp);
-      this.products = resp;
-      this.products.reverse();
-    })
-  }
 
   getProductById(productId: string) {
     this._productService.getProduct().subscribe((resp: any) => {
       console.log('Products', resp);
-
-      // Buscar el producto por ID en la respuesta
       const productById = resp.find((product: any) => product.id === productId);
 
       if (productById) {
         console.log('Product by ID', productById);
-        // Aquí puedes realizar las acciones que desees con el producto encontrado
       } else {
         console.log('Product not found');
-        // Puedes manejar el caso en que el producto no sea encontrado
       }
+    });
+  }
+
+  getSale() {
+    this.sales = []
+    this._saleService.getSale().subscribe((resp: any) => {
+      console.log('Ventas:', resp);
+      this.sales = resp;
+      this.sales.reverse();
     });
   }
 
 
 
+
+
+  /**DESCARGAR VENTAS EN PDF */
   generatePDF(sales: any) {
     try {
-      // Definir el contenido del PDF
       const documentDefinition = {
         content: [
           { text: 'Reporte de productos', style: 'header' },
@@ -153,7 +193,6 @@ export class Tab3Page {
           },
         },
       };
-      // Crear el PDF
       const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
       this.alertService.generateToast({
         duration: 2000,
@@ -162,14 +201,16 @@ export class Tab3Page {
         message: 'Reporte realizado',
         position: 'bottom',
       });
-
-      // Descargar el PDF
       pdfDocGenerator.download('Reporte_de_productos.pdf');
     } catch (error) {
       console.error('Error al generar el PDF:', error);
-      // Aquí podrías manejar el error de otra manera, como mostrar un mensaje al usuario.
+      this.alertService.generateToast({
+        duration: 2000,
+        color: 'danger',
+        icon: 'close-circle',
+        message: 'Error al generar el reporte',
+        position: 'bottom',
+      });
     }
   }
-
-
 }
