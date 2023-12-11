@@ -35,6 +35,7 @@ interface Sale {
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+[x: string]: any;
 
   productosFiltrados: any[] = [];
   originalProducts: any[] = [];
@@ -57,6 +58,7 @@ export class Tab2Page {
   productId = 0;
   price_sale: number = 0;
   busquedaP: any[] = [];
+  profuctoslist: Product[] = [];
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
@@ -174,6 +176,7 @@ export class Tab2Page {
     this.products = []
     this._productService.getProduct().subscribe((resp: any) => {
       console.log('GetProductos:', resp);
+      this.profuctoslist = resp;
       this.products = resp;
       this.products.reverse();
       this.originalProducts = resp;
@@ -194,6 +197,27 @@ export class Tab2Page {
         console.log('Product not found');
         // Puedes manejar el caso en que el producto no sea encontrado
       }
+    });
+  }
+
+  eliminarfiltro(){
+    //this.categories = [];
+    this.getProducts();
+  }
+
+  eliminarCategoria(id: number) {
+    const observable = this._categoryService.deleteCategory(id);
+    observable.subscribe((response) => {
+      console.log('Categoria eliminada correctamente');
+      this.alertsService.generateToast({
+        duration: 2000, color: 'success', icon: 'checkmark-circle', message: 'Categoria eliminada', position: 'top'
+      });
+      this.getCategorias();
+    }, (error) => {
+      console.log('No se pudo eliminar la categoria');
+      this.alertsService.generateToast({
+        duration: 2000, color: 'danger', icon: 'warning', message: 'No se pudo eliminar la categoria', position: 'top'
+      });
     });
   }
 

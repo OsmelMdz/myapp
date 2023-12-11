@@ -10,6 +10,13 @@
         </ion-card>
       </ion-col>
     </swiper-slide>
+    <ion-row>
+      <ion-col class="ion-text-center ion-padding" *ngIf="!products.length" size="12">
+        <ion-text color="danger">
+          <h3>Aun no hay ningun producto</h3>
+        </ion-text>
+      </ion-col>
+    </ion-row>
   </swiper-container>
 
 
@@ -42,6 +49,13 @@
       </ion-card>
       </ion-col>
     </swiper-slide>
+    <ion-row>
+      <ion-col class="ion-text-center ion-padding" *ngIf="!products.length" size="12">
+        <ion-text color="danger">
+          <h3>Aun no hay ningun producto</h3>
+        </ion-text>
+      </ion-col>
+    </ion-row>
   </swiper-container>
 
   <!-- Estadísticas -->

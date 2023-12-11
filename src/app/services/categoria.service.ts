@@ -25,5 +25,9 @@ export class CategoriaService {
     this.getNewCategory.emit(category);
   }
 
+  deleteCategory(id: number) {
+    return this.http.delete(`${this.URL}/eliminarCategoria/${id}`);
+  }
+
 
 }

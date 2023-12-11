@@ -12,6 +12,8 @@
       {
         "aria-allowed-attr": "off"
       }
-    ]
+    ],
+    "apple-touch-icons": "off",
+    "meta-viewport": "off"
   }
 }

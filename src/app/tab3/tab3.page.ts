@@ -38,6 +38,7 @@ export class Tab3Page {
   fechaInicio: string = '';
   fechaFin: string = '';
   productosFiltrados: any[] = [];
+  totalventas: number = 0;
 
   constructor(
     private _productService: ProductsService,
@@ -95,6 +96,12 @@ export class Tab3Page {
     console.log(swiper);
   }
 
+  eliminarfiltro(){
+    this.fechaInicio = '';
+    this.fechaFin = '';
+    this.getSale();
+    this.getProducts();
+  }
 
 
 
@@ -175,7 +182,12 @@ export class Tab3Page {
       console.log('Ventas:', resp);
       this.sales = resp;
       this.sales.reverse();
+      this.totalventas = this.sales.length;
     });
+  }
+
+  getTotalventas(){
+    this.totalventas = this.sales.length;
   }
 
 

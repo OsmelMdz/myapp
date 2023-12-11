@@ -5,6 +5,15 @@
 
   <ion-grid >
     <ion-row>
+      <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6">
+        <ion-button color="dark" (click)="eliminarfiltro()" expand="block">
+          <ion-icon slot="start" name="clear"></ion-icon>
+          Borrar Flitros
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
       <ion-col size="6">
         <ion-label >Fecha de inicio</ion-label>
         <ion-input type="date" fill="outline" placeholder="Adquisicion" [(ngModel)]="fechaInicio" (ionChange)="onDateChange()"></ion-input>
@@ -33,7 +42,15 @@
         <p><b>Total:</b> {{ sale.total | currency }}</p>
       </ion-label>
     </ion-item>
+    <ion-row>
+      <ion-col class="ion-text-center ion-padding" *ngIf="!sales.length" size="12">
+        <ion-text color="danger">
+          <h3>Aun no hay ninguna venta</h3>
+        </ion-text>
+      </ion-col>
+    </ion-row>
   </ion-list>
+
 
   <ion-item>
     <ion-button class="button-container" (click)="generatePDF(sales)" type="submit" class="rounded-button">
